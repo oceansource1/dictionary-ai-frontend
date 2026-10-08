@@ -1,0 +1,62 @@
+{
+  "default": "qwen3-vl:4b",
+  "models": [
+    {
+      "name": "qwen3-vl:4b",
+      "file": "Qwen3-VL-4B-Instruct-Q4_K_M.gguf",
+      "size": 2497282336,
+      "sha256": "d4dcd426bfba75752a312b266b80fec8136fbaca13c62d93b7ac41fa67f0492b",
+      "projector": "mmproj-Qwen3-VL-4B-F16.gguf",
+      "projectorSize": 836180640,
+      "projectorSha256": "1b9f4e92f0fbda14d7d7b58baed86039b8a980fe503d9d6a9393f25c0028f1fc",
+      "capabilities": ["completion", "vision"],
+      "source": "https://huggingface.co/unsloth/Qwen3-VL-4B-Instruct-GGUF/tree/00c00da0690c4b14b5539b02c4ea5d7c9102b35e"
+    },
+    {
+      "name": "deepseek-r1:8b",
+      "file": "DeepSeek-R1-8B-Q4_K_M.gguf",
+      "size": 4920736320,
+      "sha256": "6340dc3229b0d08ea9cc49b75d4098702983e17b4c096d57afbbf2ffc813f2be",
+      "capabilities": ["completion"],
+      "source": "本机已下载 GGUF 的独立副本，不依赖 Ollama 目录"
+    },
+    {
+      "name": "minicpm-v:4.5",
+      "file": "MiniCPM-V-4_5-Q4_K_M.gguf",
+      "size": 5026714304,
+      "sha256": "c1c3c33100b15b4caf7319acce4e23c0eb0ce1cbd12f70e8d24f05aa67b7512f",
+      "projector": "mmproj-MiniCPM-V-4_5-F16.gguf",
+      "projectorSize": 1095113184,
+      "projectorSha256": "7a7225a32e8d453aaa3d22d8c579b5bf833c253f784cdb05c99c9a76fd616df8",
+      "capabilities": ["completion", "vision"],
+      "source": "https://huggingface.co/openbmb/MiniCPM-V-4_5-gguf/tree/8bfaecb5b1a65f068b86c32b997a3d5d8902eb36",
+      "contextSize": 4096,
+      "fastVision": true,
+      "projectorRemote": "mmproj-model-f16.gguf"
+    },
+    {
+      "name": "qwen3.5:9b",
+      "file": "Qwen3.5-9B-Q4_K_M.gguf",
+      "size": 5680522464,
+      "sha256": "03b74727a860a56338e042c4420bb3f04b2fec5734175f4cb9fa853daf52b7e8",
+      "projector": "mmproj-Qwen3.5-9B-F16.gguf",
+      "projectorSize": 918166080,
+      "projectorSha256": "f70dc3509053962b0d0d3ee8a7eacebf5d60aa560cad78254ae8698516ae029f",
+      "capabilities": ["completion", "vision"],
+      "source": "https://huggingface.co/unsloth/Qwen3.5-9B-GGUF/tree/3885219b6810b007914f3a7950a8d1b469d598a5",
+      "contextSize": 4096,
+      "fastVision": true,
+      "projectorRemote": "mmproj-F16.gguf"
+    },
+    {
+      "name": "deepseek-r1-distill:8b",
+      "label": "DeepSeek-R1 Distill 8B",
+      "description": "DeepSeek R1 蒸馏文字推理模型 · Q4_K_M · 建议 16GB 及以上内存",
+      "file": "DeepSeek-R1-Distill-Llama-8B-Q4_K_M.gguf",
+      "size": 4920736608,
+      "sha256": "87bcba20b4846d8dadf753d3ff48f9285d131fc95e3e0e7e934d4f20bc896f5d",
+      "capabilities": ["completion"],
+      "source": "https://huggingface.co/bartowski/DeepSeek-R1-Distill-Llama-8B-GGUF/tree/935d400c2ed1a29cc2a1045df25ec7998fb4dfe4"
+    }
+  ]
+}

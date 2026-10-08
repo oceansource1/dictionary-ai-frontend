@@ -1,0 +1,9 @@
+node_modules/
+dist/
+release/
+runtime/
+licenses/
+translation-models/opus-*/
+models/*.gguf
+*.part
+tests/*-results.json

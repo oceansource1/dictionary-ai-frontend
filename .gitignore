@@ -1,0 +1,29 @@
+# Dependencies, builds, local engines and model weights
+node_modules/
+dist/
+release/
+runtime/*
+!runtime/README.md
+/local-ocr
+models/*
+!models/catalog.json
+translation-models/*
+!translation-models/manifest.json
+*.gguf
+*.onnx
+*.safetensors
+*.bin
+*.part
+*.app/
+# Local state and secrets
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+__pycache__/
+.venv/
+.cache/
+.codex/
+.agents/
+tests/*-results.json

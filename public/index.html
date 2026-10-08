@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Local Lens · 本地智能工作台</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <aside>
+      <a class="brand" href="/" aria-label="Local Lens 首页"
+        ><span class="logo">L<span>↗</span></span>
+        <div>Local Lens<small>你的本地智能工作台</small></div></a
+      >
+      <button id="newChat" class="new-chat">＋ <span>新建对话</span><kbd>⌘ K</kbd></button>
+      <div class="section-label">工作空间</div>
+      <button class="nav active" data-mode="chat">
+        <span>◈</span> 对话问答 <span class="nav-arrow">↗</span>
+      </button>
+      <button class="nav" data-mode="translate">
+        <span>文</span> 截图翻译 <span class="nav-arrow">↗</span>
+      </button>
+      <button class="nav" data-mode="dictionary">
+        <span>译</span> 词典翻译 <span class="nav-arrow">↗</span>
+      </button>
+      <button id="openModelManager" class="nav">
+        <span>↓</span> 模型管理 <span class="nav-arrow">↗</span>
+      </button>
+      <div class="section-label history-label">最近对话</div>
+      <div id="history" class="history"></div>
+      <div class="local-card">
+        <span class="local-symbol">⌘</span><strong>在你的 Mac 上运行</strong>
+        <p>模型推理留在本机。<br />由你决定何时连接网络。</p>
+        <div><i></i> 内置引擎 · 完全本地</div>
+      </div>
+      <div class="sidebar-footer">LOCAL FIRST <span>v2.6</span></div>
+    </aside>
+    <main>
+      <header>
+        <div class="breadcrumb">
+          工作空间 <span>/</span> <strong id="pageName">对话问答</strong>
+        </div>
+        <span id="connection" class="connection">正在启动本地引擎…</span>
+      </header>
+      <div class="toolbar">
+        <div class="model-area">
+          <span class="tiny-label">当前模型</span
+          ><select id="model" aria-label="选择本地模型">
+            <option>正在读取模型…</option></select
+          ><span id="capability" class="badge"></span
+          ><button id="refresh" class="icon-button" title="刷新模型" aria-label="刷新模型">↻</button
+          ><button
+            id="importModel"
+            class="tool-button"
+            title="选择 GGUF 主模型；视觉模型同时选择配套 mmproj"
+          >
+            导入模型
+          </button>
+        </div>
+        <label class="web-switch"
+          ><input type="checkbox" id="web" /><span class="switch-track"></span>联网搜索</label
+        >
+      </div>
+      <div id="notice" role="status" hidden></div>
+      <section id="dictionaryPanel" class="dictionary-panel" hidden>
+        <div class="eyebrow"><span></span> OFFLINE TRANSLATION</div>
+        <h2>整句翻译，轻松读懂。</h2>
+        <p class="dictionary-intro">
+          输入文字或截取屏幕，用本地文字识别与专用翻译模型完成中英互译。
+        </p>
+        <div class="dictionary-controls">
+          <select id="dictionaryDirection" aria-label="词典翻译方向">
+            <option value="en-zh">英文 → 简体中文</option>
+            <option value="zh-en">中文 → English</option></select
+          ><span>OPUS-MT · 不调用大语言模型</span>
+        </div>
+        <div class="dictionary-image-tools">
+          <button id="dictionaryCapture" class="tool-button">▧ 截图翻译</button
+          ><button id="dictionaryUpload" class="tool-button">＋ 上传图片</button
+          ><span>支持粘贴、拖放图片 · 识别后自动翻译</span>
+        </div>
+        <div id="dictionaryImagePreview" class="dictionary-image-preview" hidden>
+          <img id="dictionaryImage" alt="词典翻译图片预览" /><span>识别原文可修改后重新翻译</span
+          ><button id="dictionaryRemoveImage" class="copy">移除图片</button>
+        </div>
+        <div class="dictionary-columns">
+          <div class="dictionary-box">
+            <label for="dictionaryInput">原文</label
+            ><textarea
+              id="dictionaryInput"
+              maxlength="3000"
+              placeholder="输入或粘贴要翻译的句子…"
+              aria-label="词典翻译原文"
+            ></textarea>
+            <div class="dictionary-box-footer">
+              <span id="dictionaryCount">0 / 3000</span
+              ><button id="dictionaryClear" class="copy">清空</button>
+            </div>
+          </div>
+          <div class="dictionary-box">
+            <label for="dictionaryOutput">译文</label
+            ><textarea
+              id="dictionaryOutput"
+              readonly
+              placeholder="译文将显示在这里"
+              aria-label="词典翻译译文"
+            ></textarea>
+            <div class="dictionary-box-footer">
+              <span>全部在本机处理</span><button id="dictionaryCopy" class="copy">复制译文</button>
+            </div>
+          </div>
+        </div>
+        <div class="dictionary-actions">
+          <span id="dictionaryStatus" role="status">输入文字即可翻译 · ⌘ Enter</span
+          ><button id="dictionaryStop" class="send stop" hidden>停止</button
+          ><button id="dictionaryTranslate" class="send">翻译 →</button>
+        </div>
+        <p class="dictionary-footnote">
+          专用机器翻译不会回答问题或执行指令。复杂表达、专有名词和长句的译文仍需核对。
+        </p>
+      </section>
+      <section id="welcome" class="welcome">
+        <div class="eyebrow"><span></span> PRIVATE BY DEFAULT</div>
+        <h1>想法，留在本地。<br /><span>答案，就在眼前。</span></h1>
+        <p>从一个问题、一张截图开始。<br />与你的本地模型一起思考、理解与翻译。</p>
+        <div class="suggestions">
+          <button data-prompt="请用简单的例子解释什么是大语言模型。">
+            <span>↗</span><strong>一起想清楚</strong><small>拆解概念，解答你的问题</small></button
+          ><button id="imageCard">
+            <span>▧</span><strong>看图聊一聊</strong><small>上传截图，理解图片内容</small></button
+          ><button id="translateCard">
+            <span>文 A</span><strong>让语言更简单</strong><small>截图识别，中英文互译</small>
+          </button>
+        </div>
+      </section>
+      <section
+        id="messages"
+        class="messages"
+        aria-label="对话消息"
+        aria-live="polite"
+        hidden
+      ></section>
+      <div class="composer-wrap">
+        <div id="translationOptions" class="translation-options" hidden>
+          <span>翻译方向</span
+          ><select id="direction" aria-label="翻译方向">
+            <option value="zh">英文 → 简体中文</option>
+            <option value="en">中文 → English</option></select
+          ><span>保留原文与段落结构</span>
+        </div>
+        <div class="composer" id="dropzone">
+          <div id="attachment" hidden>
+            <img id="preview" alt="待发送图片预览" />
+            <div><strong>图片已就绪</strong><small>支持截图问答与中英翻译</small></div>
+            <button id="removeImage" class="icon-button" aria-label="移除图片">×</button>
+          </div>
+          <textarea
+            id="prompt"
+            rows="2"
+            placeholder="输入问题，或粘贴一张截图…"
+            aria-label="输入问题"
+          ></textarea>
+          <div class="composer-bottom">
+            <div>
+              <button id="upload" class="tool-button" title="上传图片">＋ <span>图片</span></button
+              ><button id="capture" class="tool-button" title="共享屏幕后截取一帧">
+                ▧ <span>截屏</span></button
+              ><span class="composer-divider"></span
+              ><span id="privacy" class="privacy">◉ 仅在本机处理</span>
+            </div>
+            <button id="send" class="send" disabled>发送 ↑</button
+            ><button id="stop" class="send stop" hidden>停止 □</button>
+          </div>
+        </div>
+        <div class="composer-hint">
+          <span>支持拖放图片 · ⌘ V 粘贴截图 · Enter 发送</span
+          ><span>模型回答可能有误，请核实重要信息</span>
+        </div>
+      </div>
+    </main>
+    <input id="dictionaryFile" type="file" accept="image/png,image/jpeg,image/webp" hidden />
+    <input id="file" type="file" accept="image/png,image/jpeg,image/webp" hidden />
+    <dialog id="modelManager" aria-labelledby="modelManagerTitle">
+      <div class="manager-heading">
+        <h2 id="modelManagerTitle">模型管理</h2>
+        <button id="closeModelManager" class="tool-button">关闭</button>
+      </div>
+      <p>点击安装才会联网下载。安装完成后可离线使用；视觉组件会自动安装。</p>
+      <p class="manager-hint">
+        首次使用推荐 Qwen3-VL-4B + 中英离线词典翻译。文件大小不等于运行内存；8B/9B 建议 16GB
+        及以上，图片和长对话会额外占用内存。
+      </p>
+      <div id="modelDownloadStatus" role="status" aria-live="polite">正在读取模型清单…</div>
+      <progress id="modelDownloadProgress" max="100" value="0" hidden></progress>
+      <button id="cancelModelDownload" class="tool-button" hidden>取消下载（保留断点）</button>
+      <div id="modelManagerCards" class="model-manager-cards"></div>
+      <p class="manager-hint">
+        其他 GGUF
+        可通过主界面的“导入模型”添加。此处删除只处理本应用安装目录，不删除导入文件或其他软件的模型。安装完成后主界面模型列表会自动刷新。
+      </p>
+    </dialog>
+    <script src="/model-manager.js" type="module"></script>
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

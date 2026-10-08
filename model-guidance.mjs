@@ -1,0 +1,61 @@
+// Editorial guidance for the exact catalog variants. Memory figures are planning
+// estimates, not measured minimums or guarantees of throughput/answer quality.
+export const modelGuidance = {
+  'qwen3-vl:4b': {
+    badge: '新手首选',
+    useCases: '日常中文问答、截图阅读、简单图片理解。',
+    strengths: '本应用默认模型；支持文字和图片，下载体积比当前两个较大的视觉选项小。',
+    limitations: '复杂推理、密集表格和图片小字仍需核对；不保证比大模型更快或更准确。',
+    memory: '建议 8GB 起，16GB 更宽裕（配置参考，非最低保证）。',
+    settings: 'Q4_K_M + F16 视觉组件；8192 上下文；一次处理一张图片。',
+    performance: '偏轻量的选择。尚未进行统一速度或中文质量对比。',
+    validation: '已在 M3 Pro / 18GB 上验证离线文字问答、截图识别翻译和模型切换。',
+    verified: true,
+  },
+  'minicpm-v:4.5': {
+    badge: '视觉备选',
+    useCases: '截图、文档图片和图片文字问答；用于与默认视觉模型对照。',
+    strengths: '支持图片输入；本应用实测可读取英文截图并给出中文译文。',
+    limitations: '不是专业 OCR 或表格解析器；可能遗漏原文或不完全遵循输出格式；本应用未接入视频。',
+    memory: '建议 16GB 及以上；18GB Mac 已完成基础测试（非峰值内存测量）。',
+    settings: 'Q4_K_M + F16 视觉组件；4096 上下文；关闭深度思考。',
+    performance: '下载约 6.12GB；复杂图片耗时需实测，未证明优于其他视觉模型。',
+    validation: '已在 M3 Pro / 18GB 上验证离线截图翻译、加载和切回旧模型；非全面质量评测。',
+    verified: true,
+  },
+  'qwen3.5:9b': {
+    badge: '较大视觉选项',
+    useCases: '文字与图片综合问答；希望尝试更大模型的用户。',
+    strengths: '同一模型处理文字和图片；本应用实测可读取截图并翻译。',
+    limitations: '权重较大，需要给系统和图片处理留内存；参数更多不等于每个任务都更好。',
+    memory: '建议 16GB 及以上；18GB Mac 已完成基础测试（长对话会额外占用内存）。',
+    settings: 'Q4_K_M + F16 视觉组件；4096 上下文；关闭深度思考。',
+    performance: '下载约 6.60GB；尚无统一吞吐速度或中文质量排名。',
+    validation: '已在 M3 Pro / 18GB 上验证离线截图翻译、加载和模型切换；非全面质量评测。',
+    verified: true,
+  },
+  'deepseek-r1-distill:8b': {
+    badge: '文字推理候选',
+    useCases: '纯文字问题、分步分析和推理，不需要图片的用户。',
+    strengths: 'R1 蒸馏文字模型；无需下载视觉组件。',
+    limitations: '不能直接看图；可能输出较长的思考过程。公开下载版尚未在本机完成推理测试。',
+    memory: '建议 16GB 及以上（配置参考，非该下载版本的实测下限）。',
+    settings: 'Q4_K_M；8192 上下文；与原有本地 DeepSeek 8B 文件为不同版本。',
+    performance: '不承诺比视觉模型更快；思考长度会影响等待时间。',
+    validation:
+      '已配置固定版本和 SHA-256；此下载文件尚未完成本机加载/问答验证。旧本地 8B 的测试不能替代它。',
+    verified: false,
+  },
+  translation: {
+    badge: '词典必装',
+    useCases: '中英整句互译、词典页截图翻译。',
+    strengths: '约 0.24GB；使用专用机器翻译，不需要加载聊天大模型。',
+    limitations:
+      '不会回答问题；可能误译专名、否定和复杂句，短句也可能添加多余内容。截图文字识别由本机 OCR 完成。',
+    memory: '独立 CPU 翻译进程；模型文件小，但文件大小不等于运行内存。',
+    settings: 'OPUS-MT 双向 ONNX 量化版；最多 3000 字；空闲后释放翻译进程。',
+    performance: '首次翻译要加载资源，后续可复用；未与聊天模型做统一速度对比。',
+    validation: '已验证中英双向离线翻译、OCR 衔接和取消恢复；不代表译文总是正确。',
+    verified: true,
+  },
+};

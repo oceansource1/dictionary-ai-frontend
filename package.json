@@ -1,0 +1,32 @@
+{
+  "name": "local-lens",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "build:desktop": "zsh scripts/build-desktop.sh",
+    "desktop": "open \"dist/Local Lens.app\"",
+    "models:list": "python3 scripts/models.py list",
+    "models:install": "python3 scripts/models.py install",
+    "models:migrate": "python3 scripts/models.py migrate",
+    "setup:runtime": "python3 scripts/setup-runtime.py",
+    "export:source": "python3 scripts/export-source.py",
+    "format": "prettier --write \"*.mjs\" \"public/**/*.{js,html,css}\" \"scripts/*.mjs\" \"tests/*.mjs\" \"*.json\" \"models/catalog.json\" \"translation-models/manifest.json\" \"README.md\"",
+    "format:check": "prettier --check \"*.mjs\" \"public/**/*.{js,html,css}\" \"scripts/*.mjs\" \"tests/*.mjs\" \"*.json\" \"models/catalog.json\" \"translation-models/manifest.json\" \"README.md\"",
+    "format:python": "python3 -m black scripts",
+    "format:python:check": "python3 -m black --check scripts",
+    "format:swift": "xcrun swift-format format --in-place --recursive desktop",
+    "format:swift:check": "xcrun swift-format lint --strict --recursive desktop"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "4.3.0"
+  },
+  "devDependencies": {
+    "prettier": "3.6.2"
+  }
+}
