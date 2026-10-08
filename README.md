@@ -47,6 +47,8 @@ npm run build:desktop
 open "dist/Dictionary & AI Frontend.app"
 ```
 
+日常只需打开 `dist/Dictionary & AI Frontend.app`。`start.command` 和 `npm run desktop` 是指向同一个 App 的快捷启动方式。构建备份存放在隐藏目录 `dist/.backups/`，不会再显示为多个可启动的 App。
+
 构建不要求已经下载模型。也可以在 Finder 中双击 `dist/Dictionary & AI Frontend.app`，或者双击 `start.command`。模型为空时出现安装提示是正常现象，继续下一步。
 
 ### 5. 在应用中安装模型

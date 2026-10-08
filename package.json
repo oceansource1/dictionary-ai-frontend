@@ -7,7 +7,7 @@
     "start": "node server.mjs",
     "test": "node --test tests/*.test.mjs",
     "build:desktop": "zsh scripts/build-desktop.sh",
-    "desktop": "open \"dist/Dictionary & AI Frontend.app\"",
+    "desktop": "zsh start.command",
     "models:list": "python3 scripts/models.py list",
     "models:install": "python3 scripts/models.py install",
     "models:migrate": "python3 scripts/models.py migrate",

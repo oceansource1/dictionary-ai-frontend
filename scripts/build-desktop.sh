@@ -39,7 +39,8 @@ codesign --force --sign - "$app"
 codesign --verify --deep --strict "$app"
 mkdir -p "$PWD/dist"
 if [[ -d "$destination" ]]; then
-  mv "$destination" "$PWD/dist/Dictionary & AI Frontend-previous-$(date +%Y%m%d-%H%M%S).app"
+  mkdir -p "$PWD/dist/.backups"
+  mv "$destination" "$PWD/dist/.backups/Dictionary & AI Frontend-$(date +%Y%m%d-%H%M%S)-$$.backup"
 fi
 ditto --norsrc "$app" "$destination"
 echo "已生成：$destination"
