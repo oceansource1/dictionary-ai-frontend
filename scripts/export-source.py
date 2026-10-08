@@ -55,11 +55,11 @@ files += [
     root / "translation-models/manifest.json",
     root / "runtime/README.md",
 ]
-output = root / "release/local-lens-source.zip"
+output = root / "release/dictionary-ai-frontend-source.zip"
 output.parent.mkdir(exist_ok=True)
 with zipfile.ZipFile(output, "w", zipfile.ZIP_DEFLATED) as z:
     for p in sorted(set(files)):
         if p.stat().st_size > 10 * 1024 * 1024:
             raise RuntimeError("Unexpected large source file: " + str(p))
-        z.write(p, "local-lens/" + str(p.relative_to(root)))
+        z.write(p, "dictionary-ai-frontend/" + str(p.relative_to(root)))
 print(output, output.stat().st_size, "bytes")

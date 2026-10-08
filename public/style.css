@@ -103,6 +103,13 @@ aside {
   font-size: 21px;
   letter-spacing: -0.6px;
 }
+.brand > div {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.brand .logo {
+  flex-shrink: 0;
+}
 .brand small {
   display: block;
   font-weight: 400;

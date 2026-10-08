@@ -273,7 +273,7 @@ export const server = http.createServer(async (req, res) => {
 });
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   server.listen(port, '127.0.0.1', () => {
-    console.log(`Local Lens 已启动：http://localhost:${port}`);
+    console.log(`Dictionary & AI Frontend 已启动：http://localhost:${port}`);
     if (process.env.LOCAL_LENS_SKIP_WARMUP !== '1')
       engine
         .listModels()

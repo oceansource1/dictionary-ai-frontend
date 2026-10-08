@@ -1,9 +1,9 @@
 #!/bin/zsh
 set -euo pipefail
 cd "${0:A:h:h}"
-destination="$PWD/dist/Local Lens.app"
+destination="$PWD/dist/Dictionary & AI Frontend.app"
 staging=$(mktemp -d /tmp/local-lens-build.XXXXXX)
-app="$staging/Local Lens.app"
+app="$staging/Dictionary & AI Frontend.app"
 mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources/public" /tmp/local-lens-swift-cache
 xcrun swiftc -swift-version 5 -module-cache-path /tmp/local-lens-swift-cache -O -framework Cocoa -framework WebKit desktop/LocalLens.swift -o "$app/Contents/MacOS/LocalLens"
 xcrun swiftc -swift-version 5 -module-cache-path /tmp/local-lens-swift-cache -O -framework Vision -framework ImageIO desktop/OCR.swift -o "$app/Contents/Resources/local-ocr"
@@ -39,7 +39,7 @@ codesign --force --sign - "$app"
 codesign --verify --deep --strict "$app"
 mkdir -p "$PWD/dist"
 if [[ -d "$destination" ]]; then
-  mv "$destination" "$PWD/dist/Local Lens-previous-$(date +%Y%m%d-%H%M%S).app"
+  mv "$destination" "$PWD/dist/Dictionary & AI Frontend-previous-$(date +%Y%m%d-%H%M%S).app"
 fi
 ditto --norsrc "$app" "$destination"
 echo "已生成：$destination"

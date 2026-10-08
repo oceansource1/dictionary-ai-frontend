@@ -3,15 +3,15 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleName</key>
-	<string>Local Lens</string>
+	<string>Dictionary &amp; AI Frontend</string>
 	<key>CFBundleDisplayName</key>
-	<string>Local Lens</string>
+	<string>Dictionary &amp; AI Frontend</string>
 	<key>CFBundleIdentifier</key>
 	<string>local.locallens.desktop</string>
 	<key>CFBundleVersion</key>
-	<string>9</string>
+	<string>10</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.6.0</string>
+	<string>2.6.1</string>
 	<key>CFBundleExecutable</key>
 	<string>LocalLens</string>
 	<key>CFBundlePackageType</key>

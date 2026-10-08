@@ -20,11 +20,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, 
         let appMenu = NSMenu()
         appItem.submenu = appMenu
         appMenu.addItem(
-            withTitle: "关于 Local Lens",
+            withTitle: "关于 Dictionary & AI Frontend",
             action: #selector(NSApplication.orderFrontStandardAboutPanel(_:)), keyEquivalent: "")
         appMenu.addItem(.separator())
         appMenu.addItem(
-            withTitle: "退出 Local Lens", action: #selector(NSApplication.terminate(_:)),
+            withTitle: "退出 Dictionary & AI Frontend",
+            action: #selector(NSApplication.terminate(_:)),
             keyEquivalent: "q")
         let edit = NSMenuItem()
         menu.addItem(edit)
@@ -48,14 +49,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, 
             contentRect: NSRect(x: 0, y: 0, width: 1160, height: 800),
             styleMask: [.titled, .closable, .miniaturizable, .resizable], backing: .buffered,
             defer: false)
-        window.title = "Local Lens · 本地智能工作台"
+        window.title = "Dictionary & AI Frontend · 本地智能工作台"
         window.minSize = NSSize(width: 780, height: 600)
         window.contentView = web
         window.center()
         window.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)
         web.loadHTMLString(
-            "<html><meta charset='utf-8'><body style='background:#f0f3ec;color:#294e3e;font:18px -apple-system;padding:70px'><h1>Local Lens</h1><p>正在启动本地智能工作台…</p></body></html>",
+            "<html><meta charset='utf-8'><body style='background:#f0f3ec;color:#294e3e;font:18px -apple-system;padding:70px'><h1>Dictionary &amp; AI Frontend</h1><p>正在启动本地智能工作台…</p></body></html>",
             baseURL: nil)
         startBackend()
     }
@@ -78,7 +79,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, 
                 handle.readabilityHandler = nil
                 return
             }
-            if String(decoding: data, as: UTF8.self).contains("Local Lens 已启动") {
+            if String(decoding: data, as: UTF8.self).contains("Dictionary & AI Frontend 已启动") {
                 DispatchQueue.main.async {
                     self.ready = true
                     self.web.load(URLRequest(url: self.address))
@@ -98,7 +99,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, 
         do { try p.run() } catch { alert("启动失败", error.localizedDescription, fatal: true) }
         DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
             if !self.ready && !self.quitting {
-                self.alert("服务启动超时", "请退出后重新打开 Local Lens。", fatal: true)
+                self.alert("服务启动超时", "请退出后重新打开 Dictionary & AI Frontend。", fatal: true)
             }
         }
     }
@@ -207,7 +208,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, 
                 NSApp.activate(ignoringOtherApps: true)
                 var value: [String: String] =
                     data.map { ["image": $0.base64EncodedString()] } ?? [
-                        "error": "截图已取消或未获屏幕录制权限。可在系统设置 → 隐私与安全性 → 屏幕录制中授权 Local Lens。"
+                        "error":
+                            "截图已取消或未获屏幕录制权限。可在系统设置 → 隐私与安全性 → 屏幕录制中授权 Dictionary & AI Frontend。"
                     ]
                 value["target"] = captureTarget
                 if let json = try? JSONSerialization.data(withJSONObject: value),

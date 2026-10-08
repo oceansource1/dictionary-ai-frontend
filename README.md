@@ -1,4 +1,6 @@
-# Local Lens
+# Dictionary & AI Frontend
+
+GitHub 仓库：https://github.com/oceansource1/dictionary-ai-frontend
 
 macOS 本地桌面聊天、看图问答与离线中英截图翻译。Swift + WKWebView 桌面窗口，Node.js 本地服务，llama.cpp/Metal 推理。无需 Ollama。聊天仅在用户开启联网搜索时请求外网；词典使用 Apple Vision OCR + OPUS-MT 专用翻译模型。
 
@@ -42,10 +44,10 @@ npm run setup:runtime
 
 ```sh
 npm run build:desktop
-open "dist/Local Lens.app"
+open "dist/Dictionary & AI Frontend.app"
 ```
 
-构建不要求已经下载模型。也可以在 Finder 中双击 `dist/Local Lens.app`，或者双击 `start.command`。模型为空时出现安装提示是正常现象，继续下一步。
+构建不要求已经下载模型。也可以在 Finder 中双击 `dist/Dictionary & AI Frontend.app`，或者双击 `start.command`。模型为空时出现安装提示是正常现象，继续下一步。
 
 ### 5. 在应用中安装模型
 
@@ -63,7 +65,7 @@ open "dist/Local Lens.app"
 - **聊天问答**：选择模型，输入问题发送。视觉模型支持上传、粘贴、拖放图片。
 - **截图翻译**：选择支持图片的模型，点击截屏后框选区域。
 - **词典翻译**：安装专用翻译资源后，可直接输入句子或点击页内“截图翻译”，由本地 OCR 识别再翻译。
-- 首次框选屏幕时，按 macOS 提示在“系统设置 → 隐私与安全性 → 屏幕录制”中授权 Local Lens；必要时退出重开。上传图片不需要录屏权限。
+- 首次框选屏幕时，按 macOS 提示在“系统设置 → 隐私与安全性 → 屏幕录制”中授权 Dictionary & AI Frontend；必要时退出重开。上传图片不需要录屏权限。
 - 安装完成后断网也能聊天、看图和词典翻译。联网搜索只有手动开启才使用。
 
 ### 7. 以后启动、升级与卸载模型
@@ -92,17 +94,17 @@ open "dist/Local Lens.app"
 
 ## 常见问题
 
-| 现象                              | 处理                                                           |
-| --------------------------------- | -------------------------------------------------------------- |
-| `npm` / `node` / `python3` 找不到 | 完成对应工具安装，重新打开终端，并用版本命令确认               |
-| `swiftc` 找不到                   | 完成 `xcode-select --install` 系统安装流程                     |
-| 下载失败、连接超时                | 检查能否访问 GitHub / Hugging Face，网络恢复后重试；断点会保留 |
-| 文件校验失败                      | 安装器不会启用失败文件，点击安装重新下载                       |
-| 模型列表为空                      | 打开“模型管理”安装聊天模型，或通过“导入模型”选择 GGUF          |
-| 模型已下载但不能看图              | DeepSeek 等文字模型不支持图片；选择标有“支持图片”的模型        |
-| 词典提示缺少模型                  | 在“模型管理”安装“中英离线词典翻译”，聊天模型不能替代它         |
-| 加载慢或内存不足                  | 关闭占内存的软件，改用 4B 模型、缩小图片或开启新对话           |
-| 本地服务无法启动                  | 退出其他 Local Lens 实例，确认本机 3219 端口未被其他程序占用   |
+| 现象                              | 处理                                                                       |
+| --------------------------------- | -------------------------------------------------------------------------- |
+| `npm` / `node` / `python3` 找不到 | 完成对应工具安装，重新打开终端，并用版本命令确认                           |
+| `swiftc` 找不到                   | 完成 `xcode-select --install` 系统安装流程                                 |
+| 下载失败、连接超时                | 检查能否访问 GitHub / Hugging Face，网络恢复后重试；断点会保留             |
+| 文件校验失败                      | 安装器不会启用失败文件，点击安装重新下载                                   |
+| 模型列表为空                      | 打开“模型管理”安装聊天模型，或通过“导入模型”选择 GGUF                      |
+| 模型已下载但不能看图              | DeepSeek 等文字模型不支持图片；选择标有“支持图片”的模型                    |
+| 词典提示缺少模型                  | 在“模型管理”安装“中英离线词典翻译”，聊天模型不能替代它                     |
+| 加载慢或内存不足                  | 关闭占内存的软件，改用 4B 模型、缩小图片或开启新对话                       |
+| 本地服务无法启动                  | 退出其他 Dictionary & AI Frontend 实例，确认本机 3219 端口未被其他程序占用 |
 
 ## 模型安装与后续扩展
 
@@ -113,7 +115,7 @@ python3 scripts/models.py install translation
 python3 scripts/models.py install deepseek-r1-distill:8b
 ```
 
-默认存放于 `~/Library/Application Support/Local Lens/`，聊天权重位于 `models/`，翻译资源位于 `translation-models/`。更新应用不覆盖此目录。可用 `LOCAL_LENS_DATA_DIR` 环境变量改变服务数据目录；安装脚本支持同名环境变量或 `--data-dir` 参数。
+默认存放于 `~/Library/Application Support/Local Lens/`，聊天权重位于 `models/`，翻译资源位于 `translation-models/`。为兼容旧版本，改名后仍沿用此数据目录、应用标识和聊天数据库，更新应用不覆盖此目录。可用 `LOCAL_LENS_DATA_DIR` 环境变量改变服务数据目录；安装脚本支持同名环境变量或 `--data-dir` 参数。
 
 | 模型                   | 含视觉组件的磁盘大小 | 用途                           |
 | ---------------------- | -------------------: | ------------------------------ |
@@ -161,7 +163,7 @@ npm run models:migrate
 npm run export:source
 ```
 
-生成 `release/local-lens-source.zip`：按明确白名单打包源码与模型清单，不包含权重。可解压后作为新仓库内容，也可以直接在当前目录创建 Git 仓库：
+生成 `release/dictionary-ai-frontend-source.zip`：按明确白名单打包源码与模型清单，不包含权重。可解压后作为新仓库内容，也可以直接在当前目录创建 Git 仓库：
 
 ```sh
 git init
